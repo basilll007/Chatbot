@@ -9,9 +9,10 @@ from groq import Groq
 # Load environment variables from .env
 load_dotenv()
 
-# Set Groq API key
-GROQ_API_KEY = os.getenv("GROQ_API_KEY") or "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"
-os.environ["GROQ_API_KEY"] = GROQ_API_KEY
+
+GROQ_API_KEY = os.getenv("GROQ_API_KEY") or st.secrets.get("GROQ_API_KEY")
+if not GROQ_API_KEY:
+    raise ValueError("GROQ_API_KEY not found in environment or Streamlit secrets.")
 
 # Streamlit page config
 st.set_page_config(page_title="Java GPT Assistant", layout="wide")
